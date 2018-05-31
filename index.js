@@ -103,13 +103,13 @@ function generateTest(numCalls = 8) {
   for (let i = 0; i < 8; i++) {
     const name = `li32_${i}`
     locals32.push(name)
-    locals.push(`(local ${name} i32)`)
+    locals.push(`(local $${name} i32)`)
   }
   let locals64 = []
   for (let i = 0; i < 8; i++) {
     const name = `li64_${i}`
     locals32.push(name)
-    locals.push(`(local ${name} i64)`)
+    locals.push(`(local $${name} i64)`)
   }
 
   // generate random EEI calls numCalls times
@@ -124,8 +124,8 @@ function generateTest(numCalls = 8) {
     (memory 1)
     (export "memory" (memory 0))
 
-    (export "main" $main)
-    (function $main
+    (func $main
+      (export "main")
       ${locals.join('')}
       ${calls.join('')}
     )
