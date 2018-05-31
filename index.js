@@ -75,6 +75,28 @@ function generateSingleRandomCall(locals32, locals64) {
 }
 
 function generateTest(numCalls = 8) {
+  let imports = []
+  for (let eeiMethodIndex in eeiMethods) {
+    const eeiMethod = eeiMethods[eeiMethodIndex]
+
+    let args = []
+    for (let i = 0; i < eeiMethod.args.length; i++) {
+      args.push(eeiTypes[eeiMethod.args[i]].wasmType)
+    }
+    if (args.length > 0) {
+      args = `(param ${args.join(' ')})`
+    } else {
+      args = ''
+    }
+
+    let ret = ''
+    if (eeiMethod.ret) {
+      ret = `(result ${eeiTypes[eeiMethod.ret].wasmType})`
+    }
+
+    imports.push(`(import "ethereum" "${eeiMethod.name}" (func $${eeiMethod.name} ${args} ${ret}))`)
+  }
+
   // generate 8 32-bit and 8 64-bit locals (will be used randomly)
   let locals = []
   let locals32 = []
@@ -97,9 +119,11 @@ function generateTest(numCalls = 8) {
   }
 
   return `(module
+    ${imports.join('')}
+
     (memory 1)
     (export "memory" (memory 0))
-    
+
     (export "main" $main)
     (function $main
       ${locals.join('')}
