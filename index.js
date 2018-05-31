@@ -5,7 +5,8 @@ const eeiMethods = [
   { name: 'getBlockNumber', args: [], ret: 'i64' },
   { name: 'callValue', args: [ 'resultOffset' ] },
   { name: 'return', args: [ 'memOffset', 'memLength' ] },
-  { name: 'revert', args: [ 'memOffset', 'memLength' ] }
+  { name: 'revert', args: [ 'memOffset', 'memLength' ] },
+  { name: 'call', args: [ 'i64', 'addressOffset', 'valueOffset', 'memOffset', 'memLength' ], ret: 'i32' }
 ]
 
 const eeiTypes = {
@@ -13,7 +14,9 @@ const eeiTypes = {
   i64: { wasmType: 'i64' },
   memOffset: { wasmType: 'i32' },
   memLength: { wasmType: 'i32' },
-  resultOffset: { wasmType: 'i32' }
+  resultOffset: { wasmType: 'i32' },
+  addressOffset: { wasmType: 'i32' },
+  valueOffset: { wasmType: 'i32' }
 }
 
 // from https://stackoverflow.com/a/1527820
