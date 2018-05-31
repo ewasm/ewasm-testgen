@@ -5,6 +5,8 @@ const eeiMethods = [
 ]
 
 const eeiTypes = {
+  i32: { wasmType: 'i32' },
+  i64: { wasmType: 'i64' },
   memOffset: { wasmType: 'i32' },
   memLength: { wasmType: 'i32' },
   resultOffset: { wasmType: 'i32' }
