@@ -33,7 +33,7 @@ function randomizeArgument(argType, locals32, locals64) {
 
   if (getRandomInt(0, 65536) & 1) {
     // assume locals32.length === locals64.length
-    const varName = `$l${wasmType}_${getRandomInt(0, locals32.length)}`
+    const varName = `$l${wasmType}_${getRandomInt(1, locals32.length)}`
     return `(get_local ${varName})`
   } else {
     return `(${wasmType}.const ${getRandomInt(minValue, maxValue)})`
@@ -45,11 +45,11 @@ function randomizeReturn(statement, retType, locals32, locals64) {
   const range = (locals32.length + locals64.length) * 2
   const choice = getRandomInt(0, range)
   if (choice <= locals32.length) {
-    const varName = `$li32_${choice}`
-    return `(set_local $${varName} ${statement})`
+    const varName = `$li32_${choice >> 1}`
+    return `(set_local ${varName} ${statement})`
   } else if (choice >= (range - locals64.length)) {
-    const varName = `$li64_${range - choice}`
-    return `(set_local $${varName} ${statement})`
+    const varName = `$li64_${(range - choice) >> 1}`
+    return `(set_local ${varName} ${statement})`
   } else {
     return `(drop ${statement})`
   }
@@ -100,15 +100,15 @@ function generateTest(numCalls = 8) {
   // generate 8 32-bit and 8 64-bit locals (will be used randomly)
   let locals = []
   let locals32 = []
-  for (let i = 0; i < 8; i++) {
+  for (let i = 1; i <= 8; i++) {
     const name = `li32_${i}`
     locals32.push(name)
     locals.push(`(local $${name} i32)`)
   }
   let locals64 = []
-  for (let i = 0; i < 8; i++) {
+  for (let i = 1; i <= 8; i++) {
     const name = `li64_${i}`
-    locals32.push(name)
+    locals64.push(name)
     locals.push(`(local $${name} i64)`)
   }
 
