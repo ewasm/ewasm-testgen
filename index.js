@@ -12,11 +12,11 @@ const eeiMethods = [
 const eeiTypes = {
   i32: { wasmType: 'i32' },
   i64: { wasmType: 'i64' },
-  memOffset: { wasmType: 'i32' },
-  memLength: { wasmType: 'i32' },
-  resultOffset: { wasmType: 'i32' },
-  addressOffset: { wasmType: 'i32' },
-  valueOffset: { wasmType: 'i32' }
+  memOffset: { wasmType: 'i32', minValue: 0, maxValue: 65536 },
+  memLength: { wasmType: 'i32', minValue: 0, maxValue: 65536 },
+  resultOffset: { wasmType: 'i32', minValue: 0, maxValue: 65536 },
+  addressOffset: { wasmType: 'i32', minValue: 0, maxValue: 65536 },
+  valueOffset: { wasmType: 'i32', minValue: 0, maxValue: 65536 }
 }
 
 // from https://stackoverflow.com/a/1527820
