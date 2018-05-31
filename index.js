@@ -1,7 +1,11 @@
 const eeiMethods = [
   { name: 'getGasLeft', args: [], ret: 'i64' },
-  { name: 'callValue', args: [ 'resultOffset' ], ret: null },
-  { name: 'return', args: [ 'memOffset', 'memLength' ], ret: null }
+  { name: 'getBlockGasLimit', args: [], ret: 'i64' },
+  { name: 'getTxGasPrice', args: [ 'resultOffset' ] },
+  { name: 'getBlockNumber', args: [], ret: 'i64' },
+  { name: 'callValue', args: [ 'resultOffset' ] },
+  { name: 'return', args: [ 'memOffset', 'memLength' ] },
+  { name: 'revert', args: [ 'memOffset', 'memLength' ] }
 ]
 
 const eeiTypes = {
