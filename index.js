@@ -132,4 +132,4 @@ function generateTest(numCalls = 8) {
   )`
 }
 
-console.log(generateTest())
+module.exports = generateTest
